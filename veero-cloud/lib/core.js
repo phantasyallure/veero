@@ -639,7 +639,7 @@ function createHandler({ env, fetch: fetchFn }) {
       return send(404, { error: "unknown op" });
     } catch (e) {
       console.error("[veero]", e && e.message);
-      return send(502, { error: "backend" });
+      return send(502, { error: "backend", detail: String((e && e.message) || "").slice(0, 80) });
     }
   };
 }
