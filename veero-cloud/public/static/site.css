@@ -166,4 +166,16 @@ h1.t{font-size:32px;letter-spacing:-.02em}h2{font-size:19px;margin-bottom:6px}.m
 .hl>.ov{display:block;position:static;grid-column:2;grid-row:1/span 3;align-self:center;width:100%;padding:0;overflow:visible;background:none;-webkit-backdrop-filter:none;backdrop-filter:none}
 .ov .login{max-width:420px;width:100%;margin:0;background:rgba(11,27,48,.58)}
 .login .x{display:none}
+.wrap:has(.hero){padding-block:18px}
+.hero{min-height:calc(100vh - 100px);padding-block:0}
+.hl .hero-logo{width:clamp(96px,min(14vw,23vh),168px);margin-bottom:clamp(10px,2.4vh,22px)}
+.hl h1{font-size:clamp(26px,min(3.6vw,6.4vh),48px)}
+.hl>p{font-size:16px;margin-top:clamp(10px,2vh,16px)}
+.hl .ov .login{text-align:left;padding:20px 22px 20px}
+.hl .ov .login form{gap:9px}.hl .ov .login label{gap:4px}
+.hl .ov .login input{padding:9px 12px}
+.hl .ov .login .hint{font-size:11.5px;line-height:1.4}
+.hl .ov .login .err{min-height:0}
+.hl .ov .login .btn{min-height:42px}
+.hl .ov .login .or{margin:2px 0 0}
 }
