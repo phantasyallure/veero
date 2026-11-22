@@ -4,7 +4,8 @@
 <img class="hero-logo" src="/static/logo.png" alt="Veero" width="120" height="120">
 <h1>Sécurité et qualité sous contrôle, en temps réel.</h1>
 <p>Vos caméras repèrent les risques HSE et les défauts de qualité, alertent le bon responsable et gardent la trace de tout : rapports, analyses et échéances de vos équipements.</p>
-<div class="login" id="lg"><form id="fl"><h2>Connexion</h2>
+<div class="cta"><button type="button" class="btn" id="openL">Se connecter</button><button type="button" class="btn alt" id="openS">Créer un compte</button></div>
+<div class="ov" id="ov"><div class="login" id="lg" role="dialog" aria-modal="true" aria-label="Connexion"><button type="button" class="x" id="xl" aria-label="Fermer">×</button><form id="fl"><h2>Connexion</h2>
 <label>E-mail ou identifiant<input name="ident" required autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="vous@entreprise.com ou ORA-1234"></label>
 <label>Mot de passe ou code PIN<input name="secret" type="password" required autocomplete="current-password"></label>
 <p class="hint">Administration : votre e-mail et votre mot de passe. Responsable HSE ou Qualité : l’identifiant et le code PIN donnés par votre administration. Nous vous dirigeons automatiquement.</p>
@@ -17,7 +18,7 @@
 <label>E-mail<input name="email" type="email" autocomplete="username" required></label>
 <label>Mot de passe (8 caractères min.)<input name="password" type="password" autocomplete="new-password" minlength="8" required></label>
 <div class="err"></div><button class="btn">Créer mon compte</button>
-<p class="muted" style="font-size:12px">En créant un compte, vous acceptez notre <a href="/privacy">politique de confidentialité</a>.</p></form></div></div></section></main>
+<p class="muted" style="font-size:12px">En créant un compte, vous acceptez notre <a href="/privacy">politique de confidentialité</a>.</p></form></div></div></div></div></section></main>
 <section class="pricing" id="tarifs" hidden><div class="wrap">
 <span class="eyebrow">Tarifs</span>
 <h2>Choisissez la formule adaptée à votre site</h2>
@@ -49,9 +50,15 @@
 <script>
 const $=s=>document.querySelector(s);
 function show(m){$("#fl").hidden=m==="s";$("#fs").hidden=m!=="s";const f=m==="s"?$("#fs"):$("#fl");const i=f.querySelector("input");if(i&&matchMedia("(min-width:821px)").matches)i.focus()}
+const ov=$("#ov");
+const mob=()=>!matchMedia("(min-width:821px)").matches;
+function openM(m){if(mob()){ov.classList.add("open");document.body.style.overflow="hidden"}show(m)}
+function closeM(){ov.classList.remove("open");document.body.style.overflow="";if(location.hash==="#signup")history.replaceState(null,"",location.pathname)}
+$("#openL").onclick=()=>openM("l");$("#openS").onclick=()=>{history.replaceState(null,"","#signup");openM("s")};
+$("#xl").onclick=closeM;ov.addEventListener("mousedown",e=>{if(mob()&&e.target===ov)closeM()});addEventListener("keydown",e=>{if(e.key==="Escape"&&ov.classList.contains("open"))closeM()});
 $("#goS").onclick=()=>{history.replaceState(null,"","#signup");show("s")};$("#goL").onclick=()=>{history.replaceState(null,"",location.pathname);show("l")};
-if(location.hash==="#signup")show("s");
-addEventListener("hashchange",()=>{if(location.hash==="#signup"){show("s");scrollTo({top:0,behavior:"smooth"})}});
+if(location.hash==="#signup")openM("s");
+addEventListener("hashchange",()=>{if(location.hash==="#signup")openM("s")});
 const MSG={role_taken:"Ce domaine a déjà son responsable.",bad_login:"Identifiant ou mot de passe incorrect.",email_taken:"Cet e-mail a déjà un compte.",weak:"Mot de passe : 8 caractères minimum.",invalid:"Vérifiez les champs.",busy:"Trop d’essais, patientez une minute.",not_configured:"Service pas encore configuré."};
 /* one login form: an e-mail means the administration, anything else is a manager ID (HSE / quality) */
 async function send(f,op,body){const er=f.querySelector(".err"),b=f.querySelector("button:not([type=button])");er.textContent="";b.disabled=true;
