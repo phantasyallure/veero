@@ -3,7 +3,7 @@
 *{box-sizing:border-box;margin:0}
 body{font:15px/1.6 Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
 body.bg{background:#0b1b30}
-body.bg::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(rgba(8,20,38,.55),rgba(8,20,38,.55)),url(/static/bg.jpg) center/cover no-repeat}
+body.bg::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 40%,rgba(8,20,38,.35),rgba(8,20,38,.72)),url(/static/bg.jpg) center/cover no-repeat}
 main{flex:1}a{color:inherit}[hidden]{display:none!important}
 .hdr{display:flex;align-items:center;gap:22px;padding:12px 28px;position:sticky;top:0;z-index:5;background:rgba(244,247,250,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-size:17px}.brand img{width:30px;height:30px}
@@ -25,9 +25,22 @@ main{flex:1}a{color:inherit}[hidden]{display:none!important}
 .btn:disabled{opacity:.5}.btn.sm{min-height:34px;padding:0 13px;font-size:13px}
 .btn.ghost{background:#ffffff;color:var(--ink);border:1px solid var(--line)}.btn.red{background:#fde8e6;color:var(--bad)}
 .wrap{max-width:1040px;margin:0 auto;padding:44px 24px;width:100%}
-.hero{display:grid;grid-template-columns:1fr;justify-items:center;text-align:center;gap:40px;align-items:center;min-height:calc(100vh - 190px)}.hl{display:flex;flex-direction:column;align-items:center;width:100%}
-.hl .hero-logo{width:clamp(130px,16vw,190px);height:auto;margin-bottom:24px}.hl h1{font-size:clamp(28px,3.6vw,44px);text-wrap:balance;max-width:20ch}.hl>p{font-size:16px;line-height:1.6;margin-top:18px;max-width:52ch}
-.hl .login{text-align:left;margin-top:30px;padding:18px 22px 20px}.hl .login form{gap:10px}.hl .login .hint{font-size:12px}
+.hero{display:grid;grid-template-columns:1fr;justify-items:center;text-align:center;align-items:center;min-height:calc(100vh - 150px);padding-block:8px}
+.hl{display:flex;flex-direction:column;align-items:center;width:100%}
+.hl .hero-logo{width:clamp(130px,15vw,176px);height:auto;margin:0 0 24px}
+.hl h1{font-size:clamp(30px,4vw,50px);text-wrap:balance;max-width:18ch}
+.hl>p{font-size:17px;line-height:1.65;margin-top:18px;max-width:50ch;color:rgba(255,255,255,.88)}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.cta .btn{min-height:50px;padding:0 30px;font-size:16px;font-weight:700;border-radius:12px;background:var(--orange);color:var(--navy)}
+.cta .btn:hover{filter:brightness(1.07)}
+.cta .btn.alt{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.55)}
+.cta .btn.alt:hover{background:rgba(255,255,255,.16);filter:none}
+.ov{display:none;position:fixed;inset:0;z-index:30;padding:16px;overflow:auto;background:rgba(6,15,28,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.ov.open{display:grid;place-items:center}
+.ov .login{position:relative;margin:auto;max-width:420px;padding:26px 24px 24px;text-align:left;background:rgba(11,27,48,.94)}
+.ov .login form{gap:12px}.ov .login .hint{font-size:12px}
+.login .x{position:absolute;top:10px;right:12px;width:34px;height:34px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:22px;line-height:1;cursor:pointer}
+.login .x:hover{background:rgba(255,255,255,.2)}
 .hero h1{font-size:clamp(28px,5vw,46px);line-height:1.12;letter-spacing:-.03em;color:#fff}
 .hero p{color:#fff;margin-top:14px;font-size:17px;max-width:46ch}
 .card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 24px 60px -30px rgba(16,45,80,.5)}
@@ -141,3 +154,16 @@ h1.t{font-size:32px;letter-spacing:-.02em}h2{font-size:19px;margin-bottom:6px}.m
 @media(max-width:900px){.plans[data-n="3"]{grid-template-columns:minmax(0,400px);gap:34px}.plans[data-n="3"] .plan-c.hot,.plans[data-n="3"] .plan-c.hot:hover{transform:none;animation-name:planIn}}
 @media(max-width:640px){.plans[data-n],.plans[data-n="2"],.plans[data-n="3"],.plans[data-n="4"]{grid-template-columns:minmax(0,420px)}}
 @media(prefers-reduced-motion:reduce){.plan-c,.plan-c.hot{animation:none;opacity:1}.plan-c:hover,.plan-c.hot:hover{transform:none}}
+
+/* Desktop: two columns, login card visible on the right (phone keeps buttons + popup) */
+@media(min-width:821px){
+.wrap:has(.hero){max-width:1180px}
+.hero{min-height:calc(100vh - 130px)}
+.hl{display:grid;grid-template-columns:minmax(0,1fr) 420px;column-gap:clamp(48px,7vw,110px);align-items:center;justify-items:center}
+.hl>.hero-logo,.hl>h1,.hl>p{grid-column:1}
+.hl>.hero-logo{grid-row:1;align-self:end}.hl>h1{grid-row:2}.hl>p{grid-row:3;align-self:start}
+.hl>.cta{display:none}
+.hl>.ov{display:block;position:static;grid-column:2;grid-row:1/span 3;align-self:center;width:100%;padding:0;overflow:visible;background:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.ov .login{max-width:420px;width:100%;margin:0;background:rgba(11,27,48,.58)}
+.login .x{display:none}
+}
