@@ -1,9 +1,0 @@
-{
-  "cleanUrls": true,
-  "functions": {
-    "api/index.js": {
-      "maxDuration": 30,
-      "includeFiles": "public/static/hse.js"
-    }
-  }
-}
